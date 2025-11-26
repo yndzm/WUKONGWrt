@@ -54,11 +54,11 @@ PACKAGES="$PACKAGES luci-i18n-firewall-zh-cn"
 #24.10
 PACKAGES="$PACKAGES luci-i18n-package-manager-zh-cn"
 # PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
-# PACKAGES="$PACKAGES luci-i18n-passwall-zh-cn"
+PACKAGES="$PACKAGES luci-i18n-passwall-zh-cn"
 PACKAGES="$PACKAGES luci-app-openclash"
 PACKAGES="$PACKAGES luci-app-smartdns"
 PACKAGES="$PACKAGES luci-i18n-smartdns-zh-cn"
-PACKAGES="$PACKAGES luci-i18n-homeproxy-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-homeproxy-zh-cn"
 # PACKAGES="$PACKAGES openssh-sftp-server"
 # PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
 # 文件管理器

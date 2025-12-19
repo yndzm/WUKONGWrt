@@ -91,7 +91,6 @@ else
     [ -d files/etc/openclash ] && rm -rf files/etc/openclash
 fi
 
-
 # 若构建luci-app-adguardhome 则添加内核
 if echo "$PACKAGES" | grep -q "luci-app-adguardhome"; then
     echo "✅ [构建逻辑] 已选择 luci-app-adguardhome，添加 AdGuardHome core"
@@ -104,6 +103,7 @@ else
     echo "⚪️ [构建逻辑] 未选择 luci-app-adguardhome"
     [ -f files/usr/bin/AdGuardHome ] && rm -f files/usr/bin/AdGuardHome
 fi
+
 # 构建镜像
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Building image with the following packages:"
 echo "$PACKAGES"

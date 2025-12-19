@@ -14,6 +14,14 @@ uci add dhcp domain
 uci set "dhcp.@domain[-1].name=time.android.com"
 uci set "dhcp.@domain[-1].ip=203.107.6.88"
 
+# 删除错误的小写脚本
+[ -f /etc/init.d/adguardhome ] && rm -f /etc/init.d/adguardhome
+
+# 确保只启用一个
+/etc/init.d/AdGuardHome disable
+/etc/init.d/AdGuardHome enable
+
+
 # 检查配置文件pppoe-settings是否存在 该文件由build.sh动态生成
 SETTINGS_FILE="/etc/config/pppoe-settings"
 if [ ! -f "$SETTINGS_FILE" ]; then

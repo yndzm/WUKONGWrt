@@ -79,19 +79,31 @@ fi
 
 # 若构建openclash 则添加内核
 if echo "$PACKAGES" | grep -q "luci-app-openclash"; then
-    echo "✅ 已选择 luci-app-openclash，添加 openclash core"
+    echo "✅ [构建逻辑] 已选择 luci-app-openclash，添加 openclash core"
     mkdir -p files/etc/openclash/core
-    # Download clash_meta
-    META_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-amd64.tar.gz"
-    wget -qO- $META_URL | tar xOvz > files/etc/openclash/core/clash_meta
-    chmod +x files/etc/openclash/core/clash_meta
-    # Download GeoIP and GeoSite
-    wget -q https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat -O files/etc/openclash/GeoIP.dat
-    wget -q https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat -O files/etc/openclash/GeoSite.dat
+    if [ -f extra-packages/temp-unpack/clash_meta ]; then
+        cp extra-packages/temp-unpack/clash_meta files/etc/openclash/core/clash_meta
+    else
+        echo "⚠️ [警告] 缺少 clash_meta 内核,跳过复制,你应该确保extra-packages目录下有相关run文件"
+    fi
 else
-    echo "⚪️ 未选择 luci-app-openclash"
+    echo "⚪️ [构建逻辑] 未选择 luci-app-openclash"
+    [ -d files/etc/openclash ] && rm -rf files/etc/openclash
 fi
 
+
+# 若构建luci-app-adguardhome 则添加内核
+if echo "$PACKAGES" | grep -q "luci-app-adguardhome"; then
+    echo "✅ [构建逻辑] 已选择 luci-app-adguardhome，添加 AdGuardHome core"
+    if [ -f extra-packages/temp-unpack/AdGuardHome/AdGuardHome ]; then
+        cp extra-packages/temp-unpack/AdGuardHome/AdGuardHome files/usr/bin/AdGuardHome
+    else
+        echo "⚠️ [警告] 缺少 AdGuardHome内核,跳过复制,你应该确保extra-packages目录下有相关run文件"
+    fi
+else
+    echo "⚪️ [构建逻辑] 未选择 luci-app-adguardhome"
+    [ -f files/usr/bin/AdGuardHome ] && rm -f files/usr/bin/AdGuardHome
+fi
 # 构建镜像
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Building image with the following packages:"
 echo "$PACKAGES"

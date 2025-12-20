@@ -96,6 +96,7 @@ fi
 # 若构建luci-app-adguardhome 则添加内核
 if echo "$PACKAGES" | grep -q "luci-app-adguardhome"; then
     echo "✅ [构建逻辑] 已选择 luci-app-adguardhome，添加 AdGuardHome core"
+    mkdir -p files/usr/bin
     if [ -f extra-packages/temp-unpack/AdGuardHome/AdGuardHome ]; then
         cp extra-packages/temp-unpack/AdGuardHome/AdGuardHome files/usr/bin/AdGuardHome
     else
